@@ -8,8 +8,9 @@ phases:
       - npm install
       - npm run build
   post_build:
-    commands:
-      - aws s3 sync ./dist/ s3://roflstudios.com/ --delete
+  commands:
+    - ls -la ./dist/
+    - aws s3 sync ./dist/ s3://roflstudios.com/ --delete
 artifacts:
   files:
     - "**/*"
