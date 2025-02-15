@@ -2,15 +2,14 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 20.16
+      nodejs: 20.16.0
   build:
     commands:
       - npm install
       - npm run build
   post_build:
-  commands:
-    - ls -la ./dist/
-    - aws s3 sync ./dist/ s3://roflstudios.com/ --delete
+    commands:
+      - aws s3 sync ./dist/ s3://roflstudios.com/ --delete
 artifacts:
   files:
     - "**/*"
