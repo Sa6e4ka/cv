@@ -9,7 +9,6 @@ import {
   Icon,
   Heading,
   Circle,
-  useColorModeValue,
   Flex,
   Card,
   CardBody,
@@ -30,9 +29,10 @@ import {
   ChevronRight,
   Code,
 } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 function App() {
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState<string>("about");
 
   const skills = {
     languages: ["JavaScript", "Python", "Solidity", "SQL"],
@@ -42,7 +42,7 @@ function App() {
   };
 
   return (
-    <Container maxW="5xl" py={12}>
+    <Container maxW="7xl" py={12}>
       {/* Header Section */}
       <VStack spacing={6} mb={16} as="header">
         <Image
@@ -68,49 +68,26 @@ function App() {
           Web Developer
         </Text>
 
-        <HStack spacing={6} mb={8}>
+        <HStack spacing={6} mb={8} wrap="wrap" justify="center">
           <ContactItem icon={Mail} text="alexikum@bk.ru" />
           <ContactItem icon={Phone} text="+972 55 773 33 57" />
           <ContactItem icon={MapPin} text="Beer Sheva, Israel" />
         </HStack>
 
-        <HStack spacing={4}>
+        <HStack spacing={4} justify="center">
           <SocialLink icon={Github} link="https://github.com/Sa6e4ka" />
           <SocialLink icon={MessageCircle} link="https://t.me/shallweball" />
         </HStack>
       </VStack>
 
-      {/* Navigation */}
-      <HStack justify="center" spacing={8} mb={12}>
-        <NavButton
-          text="About"
-          isActive={activeSection === "about"}
-          onClick={() => setActiveSection("about")}
-        />
-        <NavButton
-          text="Skills"
-          isActive={activeSection === "skills"}
-          onClick={() => setActiveSection("skills")}
-        />
-        <NavButton
-          text="Experience"
-          isActive={activeSection === "experience"}
-          onClick={() => setActiveSection("experience")}
-        />
-        <NavButton
-          text="Education"
-          isActive={activeSection === "education"}
-          onClick={() => setActiveSection("education")}
-        />
-      </HStack>
+      {/* Carousel Navigation */}
+      <CarouselNav
+        sections={["about", "skills", "experience", "education"]}
+        onSectionChange={setActiveSection}
+      />
 
       {/* Main Content */}
-      <Card
-        bg="whiteAlpha.800"
-        backdropFilter="blur(8px)"
-        shadow="xl"
-        rounded="2xl"
-      >
+      <Card bg="whiteAlpha.800" shadow="xl" rounded="2xl">
         <CardBody>
           {activeSection === "about" && (
             <VStack align="stretch" spacing={6}>
@@ -119,7 +96,6 @@ function App() {
                 <Heading size="lg">About Me</Heading>
               </Flex>
 
-              {/* First Paragraph */}
               <Box>
                 <Text color="gray.600" lineHeight="tall">
                   I am a student who began my studies in 2023 at the Russian
@@ -130,7 +106,6 @@ function App() {
                 </Text>
               </Box>
 
-              {/* Second Paragraph */}
               <Box>
                 <Text color="gray.600" lineHeight="tall">
                   In 2024, at 18 years old, I moved to Israel to continue my
@@ -143,7 +118,6 @@ function App() {
                 </Text>
               </Box>
 
-              {/* Third Paragraph */}
               <Box>
                 <Text color="gray.600" lineHeight="tall">
                   In my free time, I invest, play sports, and enjoy playing
@@ -226,12 +200,12 @@ function App() {
                 <Heading size="lg">Education</Heading>
               </Flex>
               <EducationItem
-                degree="Bachelor of Engineering scince"
-                university="Ben Gurion university of the negev"
+                degree="Bachelor of Engineering Science"
+                university="Ben Gurion University of the Negev"
                 period="2024 - present"
               />
               <EducationItem
-                degree="Bachelor of chemichal engineering"
+                degree="Bachelor of Chemical Engineering"
                 university="University of Chemical Technology of Russia"
                 period="2023 - 2024"
               />
@@ -242,6 +216,44 @@ function App() {
     </Container>
   );
 }
+
+const CarouselNav: React.FC<{
+  sections: string[];
+  onSectionChange: (section: string) => void;
+}> = ({ sections, onSectionChange }) => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+
+  const handlePrev = () => {
+    const prevIndex = (activeIndex - 1 + sections.length) % sections.length;
+    setActiveIndex(prevIndex);
+    onSectionChange(sections[prevIndex]);
+  };
+
+  const handleNext = () => {
+    const nextIndex = (activeIndex + 1) % sections.length;
+    setActiveIndex(nextIndex);
+    onSectionChange(sections[nextIndex]);
+  };
+
+  return (
+    <HStack justify="center" spacing={4} mb={12}>
+      <Button onClick={handlePrev} variant="ghost" size="lg">
+        <Icon as={ArrowLeft} />
+      </Button>
+      <NavButton
+        text={
+          sections[activeIndex].charAt(0).toUpperCase() +
+          sections[activeIndex].slice(1)
+        }
+        isActive={true}
+        onClick={() => {}}
+      />
+      <Button onClick={handleNext} variant="ghost" size="lg">
+        <Icon as={ArrowRight} />
+      </Button>
+    </HStack>
+  );
+};
 
 interface SocialLinkProps {
   icon: React.ElementType;
@@ -268,7 +280,10 @@ const SocialLink: React.FC<SocialLinkProps> = ({ icon, link }) => (
   </Link>
 );
 
-const ContactItem = ({ icon, text }) => (
+const ContactItem: React.FC<{ icon: React.ElementType; text: string }> = ({
+  icon,
+  text,
+}) => (
   <HStack
     color="gray.600"
     _hover={{ color: "gray.800" }}
@@ -278,11 +293,17 @@ const ContactItem = ({ icon, text }) => (
     <Text>{text}</Text>
   </HStack>
 );
+interface NavButtonProps {
+  text: string;
+  isActive: boolean;
+  onClick: () => void;
+}
 
-const NavButton = ({ text, isActive, onClick }) => (
+const NavButton: React.FC<NavButtonProps> = ({ text, isActive, onClick }) => (
   <Button
     onClick={onClick}
-    px={6}
+    px={{ base: 24, md: 8 }}
+    py={{ base: 6, md: 3 }}
     rounded="full"
     variant={isActive ? "solid" : "ghost"}
     bgGradient={isActive ? "linear(to-r, cyan.500, teal.500)" : undefined}
@@ -291,13 +312,22 @@ const NavButton = ({ text, isActive, onClick }) => (
       bg: isActive ? undefined : "whiteAlpha.200",
     }}
     shadow={isActive ? "lg" : undefined}
+    transition="all 0.3s ease"
   >
     {text}
   </Button>
 );
 
-const ExperienceItem = ({ title, company, period, description }) => (
-  <Box _hover={{ transform: "translateX(8px)" }} transition="transform 0.2s">
+const ExperienceItem: React.FC<{
+  title: string;
+  company: string;
+  period: string;
+  description: string;
+}> = ({ title, company, period, description }) => (
+  <Box
+    _hover={{ transform: "translateX(8px)", boxShadow: "lg" }}
+    transition="transform 0.3s ease, box-shadow 0.3s ease"
+  >
     <Flex align="center" mb={2}>
       <Icon as={ChevronRight} color="cyan.500" mr={2} />
       <Heading size="md">{title}</Heading>
@@ -314,8 +344,15 @@ const ExperienceItem = ({ title, company, period, description }) => (
   </Box>
 );
 
-const EducationItem = ({ degree, university, period }) => (
-  <Box _hover={{ transform: "translateX(8px)" }} transition="transform 0.2s">
+const EducationItem: React.FC<{
+  degree: string;
+  university: string;
+  period: string;
+}> = ({ degree, university, period }) => (
+  <Box
+    _hover={{ transform: "translateX(8px)", boxShadow: "lg" }}
+    transition="transform 0.3s ease, box-shadow 0.3s ease"
+  >
     <Flex align="center" mb={2}>
       <Icon as={ChevronRight} color="cyan.500" mr={2} />
       <Heading size="md">{degree}</Heading>
@@ -329,14 +366,18 @@ const EducationItem = ({ degree, university, period }) => (
   </Box>
 );
 
-const SkillCategory = ({ title, skills, colorScheme }) => (
+const SkillCategory: React.FC<{
+  title: string;
+  skills: string[];
+  colorScheme: string;
+}> = ({ title, skills, colorScheme }) => (
   <Box
     p={6}
     bg="white"
     rounded="xl"
     shadow="md"
     _hover={{ transform: "translateY(-4px)" }}
-    transition="transform 0.2s"
+    transition="transform 0.2s ease"
   >
     <Heading size="md" mb={4} color={`${colorScheme}.600`}>
       {title}
