@@ -9,7 +9,7 @@ phases:
       - npm run build
   post_build:
     commands:
-      - aws s3 sync ./build/ s3://roflstudios.com/ --delete
+      - aws s3 sync ./dist/ s3://roflstudios.com/ --delete
 artifacts:
   files:
     - "**/*"
