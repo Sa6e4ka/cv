@@ -41,7 +41,11 @@ function App() {
     tools: [
       "Git",
       "Docker",
-      "AWS S3, EC2, AWS route 53, AWS Cloudfront, AWS Pipeline, AWS Codebuild ",
+      "AWS S3, EC2",
+      "AWS route 53",
+      "AWS Cloudfront",
+      "AWS Pipeline",
+      "AWS Codebuild",
       "Thirdweb",
       "XMTP",
       "Pinata",
