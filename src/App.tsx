@@ -38,7 +38,14 @@ function App() {
     languages: ["JavaScript", "Python", "Solidity", "SQL"],
     frontend: ["React", "Vite", "CSS3"],
     backend: ["Node.js", "FastAPI", "Flask"],
-    tools: ["Git", "Docker", "AWS S3, EC2", "Thirdweb", "XMTP", "Pinata"],
+    tools: [
+      "Git",
+      "Docker",
+      "AWS S3, EC2, AWS route 53, AWS Cloudfront, AWS Pipeline, AWS Codebuild ",
+      "Thirdweb",
+      "XMTP",
+      "Pinata",
+    ],
   };
 
   return (
