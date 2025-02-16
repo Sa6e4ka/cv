@@ -49,6 +49,7 @@ function App() {
       "Thirdweb",
       "XMTP",
       "Pinata",
+      "SqlAlchemy",
     ],
   };
 
