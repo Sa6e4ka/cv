@@ -2,14 +2,16 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 20.16.0
+      nodejs: 20
   build:
     commands:
       - npm install
       - npm run build
   post_build:
     commands:
-      - aws s3 sync ./dist/ s3://roflstudios.com/ --delete
+      - aws s3 sync ./dist/ s3://roflstudios.com/ --exact-timestamps
+      - aws cloudfront create-invalidation --distribution-id E1APPNNB1Q6VYQ --paths "/*"
 artifacts:
   files:
-    - "**/*"
+    - "dist/**/*"
+  discard-paths: yes
