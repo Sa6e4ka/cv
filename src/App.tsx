@@ -58,7 +58,7 @@ function App() {
       {/* Header Section */}
       <VStack spacing={6} mb={16} as="header">
         <Image
-          src="../photo of me.jpg" // укажите путь к фото
+          src="../photo of me.jpg"
           alt="Your Name"
           boxSize="250px" // настройте размер изображения по желанию
           objectFit="cover"
@@ -82,7 +82,7 @@ function App() {
 
         <HStack spacing={6} mb={8} wrap="wrap" justify="center">
           <ContactItem icon={Mail} text="alexikum@bk.ru" />
-          <ContactItem icon={Phone} text="+972 55 773 33 57" />
+          <ContactItem icon={Phone} text="+972-55-773-33-57" />
           <ContactItem icon={MapPin} text="Beer Sheva, Israel" />
         </HStack>
 
