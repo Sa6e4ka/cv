@@ -37,7 +37,7 @@ function App() {
   const skills = {
     languages: ["JavaScript", "Python", "Solidity", "SQL"],
     frontend: ["React", "Vite", "CSS3"],
-    backend: ["Node.js", "FastAPI", "Flask"],
+    backend: ["Node.js", "FastAPI", "Flask", "Aiogram v3"],
     tools: [
       "Git",
       "Docker",
