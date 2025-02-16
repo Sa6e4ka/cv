@@ -121,11 +121,11 @@ function App() {
                 <Text color="gray.600" lineHeight="tall">
                   In 2024, at 18 years old, I moved to Israel to continue my
                   education at Ben-Gurion University, where I am currently
-                  studying engineering. My career aspirations are focused on
-                  entrepreneurship and programming, with a strong interest in
-                  teamwork and leadership. I aim to apply my analytical and
-                  organizational skills while staying up-to-date with trends in
-                  Web3, blockchain, and cryptography.
+                  studying engineering on preparation program. My career
+                  aspirations are focused on entrepreneurship and programming,
+                  with a strong interest in teamwork and leadership. I aim to
+                  apply my analytical and organizational skills while staying
+                  up-to-date with trends in Web3, blockchain, and cryptography.
                 </Text>
               </Box>
 
