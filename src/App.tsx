@@ -35,7 +35,7 @@ function App() {
   const [activeSection, setActiveSection] = useState<string>("about");
 
   const skills = {
-    languages: ["JavaScript", "Python", "Solidity", "SQL"],
+    languages: ["JavaScript", "TypeScript", "Python", "Solidity", "SQL"],
     frontend: ["React", "Vite", "CSS3"],
     backend: ["Node.js", "FastAPI", "Flask", "Aiogram v3"],
     tools: [
